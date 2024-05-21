@@ -5,25 +5,50 @@
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
-            "args": [],
-            "stopAtEntry": false,
+            "args": [
+                "-M", "xlnx",
+                 "-s", "37:1280x720-50@BG24", 
+                 "-w", "37:sdi_mode:0", 
+                 "-w", "37:sdi_data_stream:2", 
+                 "-w", "37:is_frac:0", 
+                 "-w", "37:height_out:720", 
+                 "-w", "37:width_out:1280", 
+                 "-w", "37:in_fmt:4106", 
+                 "-w", "37:out_fmt:8207"],
+            "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "linux": {
                 "MIMode": "gdb",
                 "miDebuggerPath": "gdb",
-                "program": "${workspaceFolder}/output/main"
+                "program": "${workspaceFolder}/output/modetest",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    },
+                    {
+                        "description": "Set Disassembly Flavor to Intel",
+                        "text": "-gdb-set disassembly-flavor intel",
+                        "ignoreFailures": true
+                    },
+                    // {
+                    //     "description": "Display hex values for variables",
+                    //     "text": "set output-radix 16"
+                    // }
+                ]
             },
             "osx": {
                 "MIMode": "lldb",
                 "miDebuggerPath": "lldb-mi",
-                "program": "${workspaceFolder}/output/main"
+                "program": "${workspaceFolder}/output/modetest"
             },
             "windows": {
                 "MIMode": "gdb",
                 "miDebuggerPath": "gdb.exe",
-                "program": "${workspaceFolder}/output/main.exe"
+                "program": "${workspaceFolder}/output/modetest.exe"
             },
             "preLaunchTask": "build"
         }
